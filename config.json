@@ -6,8 +6,8 @@
     "database":{
     "host":"localhost",
     "port":"3306",
-    "user":"root",
-    "pass":"Dediirawan@2404",
+    "user":"Your_user",
+    "pass":"your_password",
     "db_name":"user_management"
     },
     "token": {
