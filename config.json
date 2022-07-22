@@ -1,0 +1,19 @@
+{
+    "server":{
+    "host":"localhost", 
+    "port":":8080"
+    },
+    "database":{
+    "host":"localhost",
+    "port":"3306",
+    "user":"root",
+    "pass":"Dediirawan@2404",
+    "db_name":"user_management"
+    },
+    "token": {
+    "key": "super_secret_key"
+    },
+    "file": {
+        "path":"user/asset/images"
+    }
+}
