@@ -31,21 +31,21 @@ type UserHandler struct {
 func CreateHandler(r *mux.Router, usecase user.UserUsecase) {
 	userHandler := UserHandler{usecase}
 
-	r.HandleFunc("/login", userHandler.loginUser).Methods(http.MethodPost)
-	r.HandleFunc("/register", userHandler.createUser).Methods(http.MethodPost)
+	r.HandleFunc("/api/login", userHandler.loginUser).Methods(http.MethodPost)
+	r.HandleFunc("/api/register", userHandler.createUser).Methods(http.MethodPost)
 
 	// make a new subrouter when you want to grouping where path want to be protect and nah
 	authorized := r.NewRoute().Subrouter()
 	authorized.Use(middlewares.SetMiddlewareAuthentication)
-	authorized.HandleFunc("/user", userHandler.findAll).Methods(http.MethodGet)
-	authorized.HandleFunc("/user/{id}", userHandler.findByID).Methods(http.MethodGet)
-	authorized.HandleFunc("/user/{id}", userHandler.updateUser).Methods(http.MethodPut)
-	authorized.HandleFunc("/user/{id}", userHandler.deleteUser).Methods(http.MethodDelete)
+	authorized.HandleFunc("/api/user", userHandler.findAll).Methods(http.MethodGet)
+	authorized.HandleFunc("/api/user/{id}", userHandler.findByID).Methods(http.MethodGet)
+	authorized.HandleFunc("/api/user/{id}", userHandler.updateUser).Methods(http.MethodPut)
+	authorized.HandleFunc("/api/user/{id}", userHandler.deleteUser).Methods(http.MethodDelete)
 
 	// make a new subrouter extends a authorized path
-	uploadRequest := authorized.PathPrefix("/user").Subrouter()
+	uploadRequest := authorized.PathPrefix("/api/user").Subrouter()
 	uploadRequest.Use(middlewares.FileSizeLimiter) // use middleware to limited size when upload file
-	uploadRequest.HandleFunc("/photo/{id}", userHandler.handlingPhoto).Methods(http.MethodPost)
+	uploadRequest.HandleFunc("/api/photo/{id}", userHandler.handlingPhoto).Methods(http.MethodPost)
 }
 
 func (call *UserHandler) loginUser(w http.ResponseWriter, r *http.Request) {
